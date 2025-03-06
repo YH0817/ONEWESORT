@@ -6,66 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형을 위한 뷰포트 설정 -->
     <title>ੈ✩‧₊˚원위 노래 소트˖˚ ͙ෆ</title>
     <script type="text/javascript">
-        var namMember = new Array(
-            "<img src=> <br>ACTOR</br>",
-            "<img src=> <br>Alice</br>",
-            "<img src=> <br>AuRoRa</br>",
-            "<img src=> <br>Feeling Good</br>",
-            "<img src=> <br>GRAVITY</br>",
-            "<img src=> <br>IF</br>",
-            "<img src=> <br>Intro : 우주선</br>",
-            "<img src=> <br>Kiss in the Rain</br>",
-            "<img src=> <br>LOGO</br>",
-            "<img src=> <br>OFF ROAD</br>",
-            "<img src=> <br>SALTY BOY</br>",
-            "<img src=> <br>Shoot It Out</br>",
-            "<img src=> <br>TRAUMA (Aquarium)</br>",
-            "<img src=> <br>검은 별</br>",
-            "<img src=> <br>공과 사</br>",
-            "<img src=> <br>궤도</br>",
-            "<img src=> <br>귀걸이가 나를 때리게</br>",
-            "<img src=> <br>그녀는 대체</br>",
-            "<img src=> <br>기어이 또</br>",
-            "<img src=> <br>기억 세탁소</br>",
-            "<img src=> <br>기억 속 한 권의 책</br>",
-            "<img src=> <br>꿈속에서 놓친 너, 옅은 잠결에 흐르길</br>",
-            "<img src=> <br>나의 계절 봄은 끝났다</br>",
-            "<img src=> <br>내가 처음 만져본 강아지</br>",
-            "<img src=> <br>너의 우주는</br>",
-            "<img src=> <br>눈이 부시게</br>",
-            "<img src=> <br>다 추억</br>",
-            "<img src=> <br>다시 만나서 반가워</br>",
-            "<img src=> <br>동서남북</br>",
-            "<img src=> <br>로보트도 인간에게 감정을 느낀다</br>",
-            "<img src=> <br>룸메이트</br>",
-            "<img src=> <br>모르겠다고</br>",
-            "<img src=> <br>미쳤다 미쳤어</br>",
-            "<img src=> <br>바다에 적신 햇무리 반지</br>",
-            "<img src=> <br>베로니카의 섬</br>",
-            "<img src=> <br>별</br>",
-            "<img src=> <br>별 세는 너</br>",
-            "<img src=> <br>별 헤는 밤</br>",
-            "<img src=> <br>별보다 빛나는</br>",
-            "<img src=> <br>비를 몰고 오는 소년</br>",
-            "<img src=> <br>사라지지 않는 기억이 있다면</br>",
-            "<img src=> <br>선물할게요</br>",
-            "<img src=> <br>소행성</br>",
-            "<img src=> <br>순애</br>",
-            "<img src=> <br>시발점</br>",
-            "<img src=> <br>악당은 영웅의 변신을 기다려준다</br>",
-            "<img src=> <br>야행성</br>",
-            "<img src=> <br>오래된 음악가의 추억</br>",
-            "<img src=> <br>우물 속 작은 아이</br>",
-            "<img src=> <br>우연의 일치</br>",
-            "<img src=> <br>유일한 사랑이니까</br>",
-            "<img src=> <br>일방통행</br>",
-            "<img src=> <br>천체</br>",
-            "<img src=> <br>청천을</br>",
-            "<img src=> <br>추억의 소각장</br>",
-            "<img src=> <br>크리스마스는 이래야지</br>",
-            "<img src=> <br>한여름 밤 유성우</br>",
-            "<img src=> <br>히피</br>"
-        );
+var namMember = new Array(
+    "ACTOR",
+    "Alice",
+    "AuRoRa",
+    "Feeling Good",
+    "GRAVITY",
+    "IF",
+    "Intro : 우주선",
+    "Kiss in the Rain",
+);
+
 
         var lstMember = new Array();
         var parent = new Array();
@@ -207,6 +158,9 @@
             var str = "";
             var i;
 
+          // 문구 추가
+   	   str += "<p style='font-family: \"맑은 고딕\", sans-serif; 'font-size: 10px; font-weight: bold; margin-bottom: 10px;'>ੈ✩‧₊˚ 당신의 원위 취향은 ˖˚ ͙ෆ</p>";
+
             str += "<table style='width:200px; font-size:12px; line-height:120%; margin-left:auto; margin-right:auto; border:1px solid #000; border-collapse:collapse' align='center'>";
             str += "<tr><td style='color:#ffffff; background-color:#000; text-align:center;'>순위</td><td style='color:#ffffff; background-color:#000; text-align:center;'>이름</td></tr>";
 
@@ -223,6 +177,10 @@
             }
             str += "</table>";
             document.getElementById("resultField").innerHTML = str;
+
+    	    document.getElementById("battleNumber").style.display = "none";
+   	    document.getElementById("leftField").style.display = "none";
+    	    document.getElementById("rightField").style.display = "none";
         }
 
         function showImage() {
@@ -253,8 +211,8 @@
         #mainTable {
             font-size: 12px;
             text-align: center;
-            width: 90%; /* 너비를 90%로 설정하여 여백 추가 */
-            max-width: 410px; /* 최대 너비 설정 */
+            width: 100%; /* 너비를 90%로 설정하여 여백 추가 */
+            max-width: 600px; /* 최대 너비 설정 */
             margin: 20px auto; /* 위아래 여백 추가 */
             border-collapse: separate;
             border-spacing: 10px 5px;
@@ -274,14 +232,13 @@
         #resultField {
             text-align: center;
             width: 90%; /* 너비를 90%로 설정 */
-            max-width: 410px; /* 최대 너비 설정 */
+            max-width: 518.3px; /* 최대 너비 설정 */
             margin: 10px auto; /* 위아래 여백 조정 */
         }
 
         #resultField img {
             width: 100%; /* 이미지의 가로 길이를 부모 요소의 너비에 맞춤 */
             height: auto; /* 비율에 맞춰 세로 길이 자동 조정 */
-            max-height: 200px; /* 최대 세로 길이 설정 */
             margin-bottom: 10px;
         }
 
