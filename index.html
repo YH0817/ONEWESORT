@@ -242,31 +242,46 @@
         }
     </script>
 
- <style type="text/css">
-        #mainTable {
-            font-size: 12px;
-            font-family: '맑은 고딕', sans-serif;
-            text-align: center;
-            vertical-align: middle;
-            width: 410px;
-            margin-left: auto;
-            margin-right: auto;
-            border-collapse: separate;
-            border-spacing: 10px 5px;
-        }
+<style type="text/css">
+    #mainTable {
+        font-size: 12px;
+        font-family: '맑은 고딕', sans-serif;
+        text-align: center;
+        vertical-align: middle;
+        width: 410px; /* 이 값을 수정하여 너비를 조정할 수 있습니다 */
+        margin-left: auto;
+        margin-right: auto;
+        border-collapse: separate;
+        border-spacing: 10px 5px;
+    }
 
-        #leftField {
-            width: 120px;
-            height: 150px;
-            border: 1px solid #000;
-        }
+    #leftField {
+        width: 120px;
+        height: 150px;
+        border: 1px solid #000;
+    }
 
-        #rightField {
-            width: 120px;
-            height: 150px;
-            border: 1px solid #000;
-        }
-    </style>
+    #rightField {
+        width: 120px;
+        height: 150px;
+        border: 1px solid #000;
+    }
+
+    #resultField {
+        text-align: center;
+        width: 410px; /* mainTable과 같은 너비로 설정 */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #resultField img {
+        max-width: 100%; /* 이미지가 부모 요소의 너비를 초과하지 않도록 설정 */
+        height: auto;
+        max-height: 200px;
+        margin-bottom: 10px;
+    }
+</style>
+
 
 
 </head>
