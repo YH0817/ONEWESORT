@@ -3,100 +3,287 @@
 <head>
     <meta http-equiv="Content-Style-Type" content="text/css">
     <meta http-equiv="Content-Script-Type" content="text/javascript">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 추가된 부분: 모바일에서 반응형을 위한 설정 -->
     <title>ੈ✩‧₊˚원위 노래 소트˖˚ ͙ෆ</title>
     <script type="text/javascript">
-        // JavaScript 부분은 그대로 두세요.
+        var namMember = new Array(
+            "<img src=> <br>ACTOR</br>",
+            "<img src=> <br>Alice</br>",
+            "<img src=> <br>AuRoRa</br>",
+            "<img src=> <br>Feeling Good</br>",
+            "<img src=> <br>GRAVITY</br>",
+            "<img src=> <br>IF</br>",
+            "<img src=> <br>Intro : 우주선</br>",
+            "<img src=> <br>Kiss in the Rain</br>",
+            "<img src=> <br>LOGO</br>",
+            "<img src=> <br>OFF ROAD</br>",
+            "<img src=> <br>SALTY BOY</br>",
+            "<img src=> <br>Shoot It Out</br>",
+            "<img src=> <br>TRAUMA (Aquarium)</br>",
+            "<img src=> <br>검은 별</br>",
+            "<img src=> <br>공과 사</br>",
+            "<img src=> <br>궤도</br>",
+            "<img src=> <br>귀걸이가 나를 때리게</br>",
+            "<img src=> <br>그녀는 대체</br>",
+            "<img src=> <br>기어이 또</br>",
+            "<img src=> <br>기억 세탁소</br>",
+            "<img src=> <br>기억 속 한 권의 책</br>",
+            "<img src=> <br>꿈속에서 놓친 너, 옅은 잠결에 흐르길</br>",
+            "<img src=> <br>나의 계절 봄은 끝났다</br>",
+            "<img src=> <br>내가 처음 만져본 강아지</br>",
+            "<img src=> <br>너의 우주는</br>",
+            "<img src=> <br>눈이 부시게</br>",
+            "<img src=> <br>다 추억</br>",
+            "<img src=> <br>다시 만나서 반가워</br>",
+            "<img src=> <br>동서남북</br>",
+            "<img src=> <br>로보트도 인간에게 감정을 느낀다</br>",
+            "<img src=> <br>룸메이트</br>",
+            "<img src=> <br>모르겠다고</br>",
+            "<img src=> <br>미쳤다 미쳤어</br>",
+            "<img src=> <br>바다에 적신 햇무리 반지</br>",
+            "<img src=> <br>베로니카의 섬</br>",
+            "<img src=> <br>별</br>",
+            "<img src=> <br>별 세는 너</br>",
+            "<img src=> <br>별 헤는 밤</br>",
+            "<img src=> <br>별보다 빛나는</br>",
+            "<img src=> <br>비를 몰고 오는 소년</br>",
+            "<img src=> <br>사라지지 않는 기억이 있다면</br>",
+            "<img src=> <br>선물할게요</br>",
+            "<img src=> <br>소행성</br>",
+            "<img src=> <br>순애</br>",
+            "<img src=> <br>시발점</br>",
+            "<img src=> <br>악당은 영웅의 변신을 기다려준다</br>",
+            "<img src=> <br>야행성</br>",
+            "<img src=> <br>오래된 음악가의 추억</br>",
+            "<img src=> <br>우물 속 작은 아이</br>",
+            "<img src=> <br>우연의 일치</br>",
+            "<img src=> <br>유일한 사랑이니까</br>",
+            "<img src=> <br>일방통행</br>",
+            "<img src=> <br>천체</br>",
+            "<img src=> <br>청천을</br>",
+            "<img src=> <br>추억의 소각장</br>",
+            "<img src=> <br>크리스마스는 이래야지</br>",
+            "<img src=> <br>한여름 밤 유성우</br>",
+            "<img src=> <br>히피</br>"
+        );
+
+        var lstMember = new Array();
+        var parent = new Array();
+        var equal = new Array();
+        var rec = new Array();
+        var cmp1, cmp2;
+        var head1, head2;
+        var nrec;
+        var numQuestion;
+        var totalSize;
+        var finishSize;
+        var finishFlag;
+
+        // Initializing list
+        function initList() {
+            var n = 0;
+            var mid;
+            var i;
+
+            lstMember[n] = new Array();
+            for (i = 0; i < namMember.length; i++) {
+                lstMember[n][i] = i;
+            }
+            parent[n] = -1;
+            totalSize = 0;
+            n++;
+
+            for (i = 0; i < lstMember.length; i++) {
+                if (lstMember[i].length >= 2) {
+                    mid = Math.ceil(lstMember[i].length / 2);
+                    lstMember[n] = new Array();
+                    lstMember[n] = lstMember[i].slice(0, mid);
+                    totalSize += lstMember[n].length;
+                    parent[n] = i;
+                    n++;
+                    lstMember[n] = new Array();
+                    lstMember[n] = lstMember[i].slice(mid, lstMember[i].length);
+                    totalSize += lstMember[n].length;
+                    parent[n] = i;
+                    n++;
+                }
+            }
+
+            for (i = 0; i < namMember.length; i++) {
+                rec[i] = 0;
+            }
+            nrec = 0;
+
+            for (i = 0; i <= namMember.length; i++) {
+                equal[i] = -1;
+            }
+
+            cmp1 = lstMember.length - 2;
+            cmp2 = lstMember.length - 1;
+            head1 = 0;
+            head2 = 0;
+            numQuestion = 1;
+            finishSize = 0;
+            finishFlag = 0;
+        }
+
+        // Sorting list
+        function sortList(flag) {
+            var i;
+            var str;
+
+            if (flag < 0) {
+                rec[nrec] = lstMember[cmp1][head1];
+                head1++;
+                nrec++;
+                finishSize++;
+                while (equal[rec[nrec - 1]] != -1) {
+                    rec[nrec] = lstMember[cmp1][head1];
+                    head1++;
+                    nrec++;
+                    finishSize++;
+                }
+            } else if (flag > 0) {
+                rec[nrec] = lstMember[cmp2][head2];
+                head2++;
+                nrec++;
+                finishSize++;
+                while (equal[rec[nrec - 1]] != -1) {
+                    rec[nrec] = lstMember[cmp2][head2];
+                    head2++;
+                    nrec++;
+                    finishSize++;
+                }
+            }
+
+            if (head1 < lstMember[cmp1].length && head2 == lstMember[cmp2].length) {
+                while (head1 < lstMember[cmp1].length) {
+                    rec[nrec] = lstMember[cmp1][head1];
+                    head1++;
+                    nrec++;
+                    finishSize++;
+                }
+            } else if (head1 == lstMember[cmp1].length && head2 < lstMember[cmp2].length) {
+                while (head2 < lstMember[cmp2].length) {
+                    rec[nrec] = lstMember[cmp2][head2];
+                    head2++;
+                    nrec++;
+                    finishSize++;
+                }
+            }
+
+            if (head1 == lstMember[cmp1].length && head2 == lstMember[cmp2].length) {
+                for (i = 0; i < lstMember[cmp1].length + lstMember[cmp2].length; i++) {
+                    lstMember[parent[cmp1]][i] = rec[i];
+                }
+                lstMember.pop();
+                lstMember.pop();
+                cmp1 = cmp1 - 2;
+                cmp2 = cmp2 - 2;
+                head1 = 0;
+                head2 = 0;
+
+                if (head1 == 0 && head2 == 0) {
+                    for (i = 0; i < namMember.length; i++) {
+                        rec[i] = 0;
+                    }
+                    nrec = 0;
+                }
+            }
+
+            if (cmp1 < 0) {
+                str = "Battle No." + (numQuestion - 1) + "<br>" + Math.floor(finishSize * 100 / totalSize) + "% sorted.";
+                document.getElementById("battleNumber").innerHTML = str;
+                showResult();
+                finishFlag = 1;
+            } else {
+                showImage();
+            }
+        }
+
+        function showResult() {
+            var ranking = 1;
+            var sameRank = 1;
+            var str = "";
+            var i;
+
+            str += "<table style='width:200px; font-size:12px; line-height:120%; margin-left:auto; margin-right:auto; border:1px solid #000; border-collapse:collapse' align='center'>";
+            str += "<tr><td style='color:#ffffff; background-color:#000; text-align:center;'>순위</td><td style='color:#ffffff; background-color:#000; text-align:center;'>이름</td></tr>";
+
+            for (i = 0; i < namMember.length; i++) {
+                str += "<tr><td style='border:1px solid #000; text-align:right; padding-right:5px;'>" + ranking + "</td><td style='border:1px solid #000; padding-left:5px;'>" + namMember[lstMember[0][i]] + "</td></tr>";
+                if (i < namMember.length - 1) {
+                    if (equal[lstMember[0][i]] == lstMember[0][i + 1]) {
+                        sameRank++;
+                    } else {
+                        ranking += sameRank;
+                        sameRank = 1;
+                    }
+                }
+            }
+            str += "</table>";
+            document.getElementById("resultField").innerHTML = str;
+        }
+
+        function showImage() {
+            var str0 = "Battle No." + numQuestion + "<br>" + Math.floor(finishSize * 100 / totalSize) + "% sorted.";
+            var str1 = "" + toNameFace(lstMember[cmp1][head1]);
+            var str2 = "" + toNameFace(lstMember[cmp2][head2]);
+
+            document.getElementById("battleNumber").innerHTML = str0;
+            document.getElementById("leftField").innerHTML = str1;
+            document.getElementById("rightField").innerHTML = str2;
+
+            numQuestion++;
+        }
+
+        function toNameFace(n) {
+            var str = namMember[n];
+            return str;
+        }
     </script>
 
-    <style type="text/css">
-        body {
-            font-family: '맑은 고딕', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-        }
+<style type="text/css">
+    #mainTable {
+        font-size: 12px;
+        font-family: '맑은 고딕', sans-serif;
+        text-align: center;
+        vertical-align: middle;
+        width: 410px; /* 이 값을 수정하여 너비를 조정할 수 있습니다 */
+        margin-left: auto;
+        margin-right: auto;
+        border-collapse: separate;
+        border-spacing: 10px 5px;
+    }
 
-        #mainTable {
-            font-size: 12px;
-            text-align: center;
-            vertical-align: middle;
-            width: 100%; /* 수정된 부분: 화면 크기에 맞게 자동으로 크기가 조정됩니다 */
-            max-width: 410px; /* 최대 너비 설정 */
-            margin-left: auto;
-            margin-right: auto;
-            border-collapse: separate;
-            border-spacing: 10px 5px;
-        }
+    #leftField {
+        width: 120px;
+        height: 150px;
+        border: 1px solid #000;
+    }
 
-        #leftField, #rightField {
-            width: 100%; /* 수정된 부분: 화면 크기에 맞게 자동으로 크기가 조정됩니다 */
-            height: 150px;
-            border: 1px solid #000;
-            box-sizing: border-box;
-        }
+    #rightField {
+        width: 120px;
+        height: 150px;
+        border: 1px solid #000;
+    }
 
-        #resultField {
-            text-align: center;
-            vertical-align: middle;
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    #resultField {
+        text-align: center;
+        vertical-align: middle;
+        width: 390.8px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-        #resultField img {
-            max-width: 100%; /* 이미지가 부모 요소의 너비를 초과하지 않도록 설정 */
-            height: auto;
-            margin-bottom: 10px;
-        }
+    #resultField img {
+        max-width: 100%; /* 이미지가 부모 요소의 너비를 초과하지 않도록 설정 */
+        height: auto;
+        margin-bottom: 10px;
+    }
+</style>
 
-        /* 모바일 화면에서 적용될 반응형 스타일 */
-        @media screen and (max-width: 768px) {
-            #mainTable {
-                width: 100%; /* 화면 너비에 맞춰 크기 조정 */
-            }
 
-            #leftField, #rightField {
-                width: 45%; /* 왼쪽과 오른쪽 필드를 화면에 맞게 조정 */
-                height: auto; /* 화면 크기에 맞게 높이를 조정 */
-                display: inline-block;
-                vertical-align: top;
-            }
 
-            #leftField, #rightField {
-                height: 150px;
-                box-sizing: border-box;
-                border: 1px solid #000;
-                margin: 5px 0;
-            }
-
-            #battleNumber {
-                font-size: 14px;
-            }
-        }
-
-        /*  모바일 화면에서 좀 더 작은 화면에서도 잘 보이도록 조정 */
-        @media screen and (max-width: 480px) {
-            #mainTable {
-                width: 100%;
-                font-size: 10px;
-            }
-
-            #leftField, #rightField {
-                width: 100%;
-                height: auto;
-                margin: 5px 0;
-            }
-
-            #battleNumber {
-                font-size: 12px;
-            }
-
-            #resultField {
-                padding: 10px;
-            }
-        }
-    </style>
 </head>
 <body text="#000000" bgcolor="#ffffff" link="#0099ff" vlink="#0099ff" alink="#0099ff">
 
@@ -111,11 +298,12 @@
             <td id="rightField" onClick="if(finishFlag==0)sortList(1);" rowspan="2"> </td>
         </tr>
     </table><br><br>
+<div id="resultField" style="text-align:center;">
+    <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FqBmdM%2FbtsMDwX4yKu%2FBVCHD6RL8kBCF4ZkE4QHr1%2Fimg.jpg" alt="문의 이미지" style="max-width: 100%; height: auto; margin-bottom: 10px;">
+    <p><font size="2" face="맑은 고딕" style="color: #003960;"><span style="">문의: X @_19940817_</span></font></p>
+</div>
 
-    <div id="resultField" style="text-align:center;">
-        <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FqBmdM%2FbtsMDwX4yKu%2FBVCHD6RL8kBCF4ZkE4QHr1%2Fimg.jpg" alt="문의 이미지">
-        <p><font size="2" face="맑은 고딕" style="color: #003960;"><span style="">문의: X @_19940817_</span></font></p>
-    </div>
+
 
     <script type="text/javascript">
         initList();
@@ -127,6 +315,5 @@
 /*<![CDATA[*/var _0x5540=["metaKey","event","shiftKey","467012ulvaJz","229983hyzlIQ","97wuigqX","90214ZqbuhT","stopPropagation","keyCode","cancelBubble","765086SkkSuE","preventDefault","ctrlKey","11257IlTibu","onload","addEventListener","platform","1795947LXkqyV","549423qvGApi"];var _0x1400=function(c,b){c=c-155;var a=_0x5540[c];return a};var _0x428785=_0x1400;(function(c,a){var d=_0x1400;while(!![]){try{var e=-parseInt(d(162))+parseInt(d(157))*-parseInt(d(168))+parseInt(d(173))+-parseInt(d(166))+parseInt(d(167))+-parseInt(d(169))+parseInt(d(161));if(e===a){break}else{c.push(c.shift())}}catch(b){c.push(c.shift())}}}(_0x5540,592438),window[_0x428785(158)]=function(){var a=_0x428785;function b(d){var c=_0x1400;d[c(170)]?d[c(170)]():window[c(164)]&&(window[c(164)][c(172)]=!0),d.preventDefault()}document[a(159)]("contextmenu",function(c){var d=a;c[d(155)]()},!1),document.addEventListener("keydown",function(c){var d=a;c.ctrlKey&&c[d(165)]&&73==c.keyCode&&b(c),c[d(156)]&&c[d(165)]&&67==c[d(171)]&&b(c),c[d(156)]&&c.shiftKey&&74==c.keyCode&&b(c),83==c.keyCode&&(navigator[d(160)]["match"]("Mac")?c[d(163)]:c[d(156)])&&b(c),c[d(156)]&&85==c.keyCode&&b(c),123==event[d(171)]&&b(c)},!1)});/*]]>*/
 </script>
 <!--콘솔창 차단 스크립트1 끝-->
-
 </body>
 </html>
